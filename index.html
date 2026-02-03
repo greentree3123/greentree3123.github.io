@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서미라 | Portfolio</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --accent: #4facfe;
+            --bg-overlay: rgba(10, 15, 30, 0.9);
+            --card-bg: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-sub: #cbd5e1;
+            --font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body, html { height: 100%; font-family: var(--font-family); color: var(--text-main); background-color: #0a0f1e; scroll-behavior: smooth; overflow-x: hidden; }
+
+        /* 배경 설정 */
+        .bg-fixed { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80') no-repeat center center fixed; background-size: cover; z-index: -2; }
+        .bg-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-overlay); z-index: -1; }
+
+        /* 네비게이션 */
+        nav { position: fixed; top: 0; width: 100%; padding: 20px 0; text-align: center; z-index: 100; background: rgba(10, 15, 30, 0.6); backdrop-filter: blur(10px); border-bottom: 1px solid var(--glass-border); }
+        nav a { color: var(--text-sub); text-decoration: none; margin: 0 12px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; font-weight: 600; }
+        nav a:hover { color: var(--accent); }
+
+        .container { display: flex; flex-direction: column; align-items: center; padding: 140px 20px 80px; }
+
+        /* 메인 프로필 카드 */
+        .identity-card {
+            background: var(--card-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid var(--glass-border);
+            padding: 65px 40px; border-radius: 35px; text-align: center; max-width: 650px; width: 100%;
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.7); margin-bottom: 60px; animation: cardFade 1.2s ease-out;
+        }
+        @keyframes cardFade { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        .profile-icon { width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; color: white; box-shadow: 0 0 40px rgba(79, 172, 254, 0.5); }
+        h1 { font-size: 2.6rem; margin-bottom: 12px; font-weight: 800; letter-spacing: -1px; }
+        .title-sub { font-size: 1rem; color: var(--accent); text-transform: uppercase; letter-spacing: 5px; margin-bottom: 40px; font-weight: 700; }
+        .bio { font-size: 1.1rem; line-height: 1.9; margin-bottom: 45px; color: var(--text-sub); word-break: keep-all; }
+
+        /* 연락처 정보 (텍스트) */
+        .contact-box {
+            display: flex; flex-direction: column; gap: 12px; padding-top: 35px; border-top: 1px solid rgba(255,255,255,0.1); align-items: center;
+        }
+        .contact-item { display: flex; align-items: center; gap: 15px; color: var(--text-sub); font-size: 0.95rem; }
+        .contact-item i { color: var(--accent); width: 20px; font-size: 1.1rem; }
+        .contact-text { font-family: 'Consolas', 'Monaco', monospace; color: #fff; letter-spacing: 0.3px; }
+
+        /* 섹션 공통 스타일 */
+        .section-box { max-width: 950px; width: 100%; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(12px); padding: 50px; border-radius: 28px; margin-bottom: 45px; border: 1px solid var(--glass-border); border-left: 6px solid var(--accent); }
+        h2 { font-size: 1.9rem; margin-bottom: 35px; display: flex; align-items: center; gap: 18px; font-weight: 800; color: #fff; }
+        h2 i { color: var(--accent); }
+
+        /* 경력 및 수상 정보 */
+        .history-item { position: relative; padding-left: 25px; border-left: 2px solid rgba(255,255,255,0.15); margin-bottom: 35px; }
+        .history-item::before { content: ""; position: absolute; left: -8px; top: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
+        .h-title { font-size: 1.3rem; font-weight: 700; color: #fff; margin-bottom: 5px; }
+        .h-meta { font-size: 0.9rem; color: var(--accent); margin-bottom: 12px; font-weight: 600; display: block; }
+        .h-desc { font-size: 1rem; line-height: 1.8; color: var(--text-sub); }
+        .h-list { margin-top: 10px; list-style: none; }
+        .h-list li { margin-bottom: 8px; padding-left: 18px; position: relative; font-size: 0.95rem; }
+        .h-list li::before { content: "•"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+
+        /* 프로젝트 섹션 */
+        .project-type { margin-top: 45px; margin-bottom: 25px; font-size: 1.2rem; font-weight: 800; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .project-card { background: rgba(255, 255, 255, 0.04); padding: 35px; border-radius: 20px; margin-bottom: 30px; transition: all 0.4s ease; border: 1px solid transparent; }
+        .project-card:hover { background: rgba(255, 255, 255, 0.07); border-color: rgba(79, 172, 254, 0.4); transform: translateY(-5px); }
+        .p-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; flex-wrap: wrap; gap: 12px; }
+        .p-title { font-size: 1.4rem; font-weight: 700; color: #fff; }
+        .p-award-badge { font-size: 0.75rem; background: #fbbf24; color: #000; padding: 4px 10px; border-radius: 6px; font-weight: 900; margin-left: 10px; }
+        .p-desc { font-size: 1rem; line-height: 1.8; color: var(--text-sub); margin-bottom: 20px; }
+        .tag-wrap { display: flex; flex-wrap: wrap; gap: 10px; }
+        .tag { background: rgba(79, 172, 254, 0.15); color: #7dd3fc; padding: 5px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(79, 172, 254, 0.2); }
+
+        /* 기술 스택 (수정됨) */
+        .skills-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .skills-row { border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .skills-row:last-child { border-bottom: none; }
+        .skills-cell-label { 
+            padding: 20px; 
+            width: 30%; 
+            color: var(--accent); 
+            font-weight: 700; 
+            font-size: 1rem;
+            vertical-align: middle;
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .skills-cell-value { 
+            padding: 20px; 
+            color: var(--text-sub); 
+            font-size: 1rem; 
+            line-height: 1.6;
+        }
+
+        footer { padding: 100px 0; text-align: center; font-size: 0.85rem; color: var(--text-sub); opacity: 0.4; letter-spacing: 2px; }
+
+        @media (max-width: 640px) {
+            .identity-card { padding: 45px 25px; }
+            h1 { font-size: 1.9rem; }
+            .section-box { padding: 35px 20px; }
+            .skills-cell-label { width: 40%; font-size: 0.9rem; padding: 15px; }
+            .skills-cell-value { font-size: 0.9rem; padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-fixed"></div>
+    <div class="bg-overlay"></div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+    </nav>
+
+    <div class="container">
+        <!-- Identity Section -->
+        <div id="home" class="identity-card">
+            <div class="profile-icon"><i class="fas fa-brain"></i></div>
+            <h1>서미라 (Mi Ra Seo)</h1>
+            <p class="title-sub">AI & IoT Solutions Engineer</p>
+            <p class="bio">
+                데이터의 흐름을 설계하고 시스템의 정합성을 증명합니다.<br>
+                비정형 데이터를 분석 가능한 핵심 정보로 전환하는 파이프라인 구축에 강점이 있으며,<br>
+                실제 상용 서비스의 기획부터 배포 후 운영까지 아우르는 실무 역량을 보유하고 있습니다.
+            </p>
+            
+            <div class="contact-box">
+                <div class="contact-item"><i class="fas fa-phone"></i><span class="contact-text">010-9221-0448</span></div>
+                <div class="contact-item"><i class="fas fa-envelope"></i><span class="contact-text">mira9221@naver.com</span></div>
+                <div class="contact-item"><i class="fab fa-github"></i><span class="contact-text">github.com/mira9221</span></div>
+            </div>
+        </div>
+
+        <!-- Experience Section -->
+        <div id="experience" class="section-box">
+            <h2><i class="fas fa-briefcase"></i> Work Experience</h2>
+            
+            <div class="history-item">
+                <div class="h-title">AI 기반 금융/데이터 기업</div>
+                <span class="h-meta">2025.08 - 2025.12 | 인턴 (기획 및 개발)</span>
+                <div class="h-desc">
+                    AI 기술을 실제 서비스 가치로 연결하는 전 과정을 주도했습니다.
+                    <ul class="h-list">
+                        <li><strong>AI 자동화 파이프라인 설계 및 구축:</strong> 비정형 데이터를 활용하여 영상 콘텐츠를 자동으로 제작하는 시스템을 직접 설계하고 구축했습니다.</li>
+                        <li><strong>서비스 홍보 페이지 엔드투엔드 개발:</strong> 마케팅 최적화를 위한 홍보 페이지의 기획부터 배포까지 전체 과정을 전담 개발했습니다.</li>
+                        <li><strong>서비스 기획 및 QA:</strong> 서비스 기획 단계부터 참여하여 QA를 수행하였으며, 현재 실제 서비스화되어 성공적으로 운영 중입니다.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="history-item">
+                <div class="h-title">AI융합학부 소프트웨어 경진대회 - 우수상</div>
+                <span class="h-meta">2024.08 | 성신여자대학교</span>
+                <div class="h-desc">비정형 약품 라벨 데이터를 OCR로 인식 및 정형화하여 데이터 관리 효율성을 높인 프로젝트로 수상했습니다.</div>
+            </div>
+
+            <div class="history-item">
+                <div class="h-title">AI융합학부 소프트웨어 경진대회 - 우수상</div>
+                <span class="h-meta">2023.09 | 성신여자대학교</span>
+                <div class="h-desc">IoT 센서를 활용해 실시간 학식 정보를 통합 제공하는 플랫폼을 구축하여 하드웨어-소프트웨어 융합 역량을 입증했습니다.</div>
+            </div>
+        </div>
+
+        <!-- Projects Section -->
+        <div id="projects" class="section-box">
+            <h2><i class="fas fa-project-diagram"></i> Projects</h2>
+
+            <div class="project-type">AI & Deep Learning</div>
+            <div class="project-card">
+                <div class="p-header"><span class="p-title">2024 데이터 크리에이터 캠프 (패션 이미지 추천)</span></div>
+                <p class="p-desc">ResNet-18 기반 이미지 특징 벡터 추출 및 Cosine 유사도 알고리즘 구현. 대규모 패션 이미지 데이터셋의 정제 및 학습 파이프라인을 구축했습니다.</p>
+                <div class="tag-wrap"><span class="tag">PyTorch</span><span class="tag">ResNet-18</span><span class="tag">Numpy</span><span class="tag">Similarity Search</span></div>
+            </div>
+
+            <div class="project-card">
+                <div class="p-header"><span class="p-title">LG Aimers 1기 (제조 불량 예측)</span></div>
+                <p class="p-desc">제조 공정 시계열 데이터를 활용한 예측 모델 설계. 피처 엔지니어링과 하이퍼파라미터 최적화를 통해 초기 대비 예측 정확도를 약 25배 고도화했습니다.</p>
+                <div class="tag-wrap"><span class="tag">TensorFlow</span><span class="tag">Pandas</span><span class="tag">Feature Engineering</span><span class="tag">EDA</span></div>
+            </div>
+
+            <div class="project-card">
+                <div class="p-header"><span class="p-title">2023 데이터 크리에이터 캠프 (음식 분류)</span></div>
+                <p class="p-desc">OpenCV를 이용한 데이터 전처리 및 PyTorch 기반 딥러닝 분류 모델 설계. 모델 기반 데이터 자동 분류 프로세스를 구축하여 효율성을 극대화했습니다.</p>
+                <div class="tag-wrap"><span class="tag">PyTorch</span><span class="tag">OpenCV</span><span class="tag">Automation</span><span class="tag">Data Pipeline</span></div>
+            </div>
+
+            <div class="project-type">Robotics & IoT</div>
+            <div class="project-card">
+                <div class="p-header"><span class="p-title">ROS 기반 TurtleBot3 제어 및 통신 구축</span></div>
+                <p class="p-desc">Remote PC와 TurtleBot3 간의 실시간 센서 데이터 송수신 및 LIDAR 기반 SLAM 시스템 구현. 네트워크 방화벽 및 IP 설정 이슈를 해결했습니다.</p>
+                <div class="tag-wrap"><span class="tag">ROS</span><span class="tag">Ubuntu</span><span class="tag">LIDAR</span><span class="tag">SLAM</span><span class="tag">Networking</span></div>
+            </div>
+
+            <div class="project-card">
+                <div class="p-header"><span class="p-title">IoT 센서 기반 실시간 학식 정보 플랫폼</span><span class="p-award-badge">AWARDED</span></div>
+                <p class="p-desc">아두이노 센서를 통해 식당 혼잡도를 수집하고 Django 서버와 Rest API로 연동. 사용자 편의성을 약 3배 향상시켰습니다.</p>
+                <div class="tag-wrap"><span class="tag">Django</span><span class="tag">Arduino</span><span class="tag">Rest API</span><span class="tag">IoT Sensor</span></div>
+            </div>
+
+            <div class="project-card">
+                <div class="p-header"><span class="p-title">사용자 맞춤형 보안 스마트 사물함</span></div>
+                <p class="p-desc">MQTT와 Node-RED 연동 실시간 경고 알림 시스템 개발. 네트워크 독립적 설계를 통해 외부 통신 장애 시에도 보안 기능을 유지하도록 구축했습니다.</p>
+                <div class="tag-wrap"><span class="tag">MQTT</span><span class="tag">Node-RED</span><span class="tag">Arduino</span><span class="tag">Security</span></div>
+            </div>
+
+            <div class="project-type">Full-Stack Development</div>
+            <div class="project-card">
+                <div class="p-header"><span class="p-title">OCR 기반 약품 관리 시스템</span><span class="p-award-badge">AWARDED</span></div>
+                <p class="p-desc">약품 라벨 OCR 인식을 통한 자동 성분 추출 및 저장 시스템. 정규화와 인덱싱 최적화를 통해 데이터 처리 속도를 약 2배 향상시켰습니다.</p>
+                <div class="tag-wrap"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">OCR</span><span class="tag">MySQL</span></div>
+            </div>
+
+            <div class="project-card">
+                <div class="p-header"><span class="p-title">인지 효율 메모 플랫폼</span></div>
+                <p class="p-desc">'이중 부호화 이론'을 적용한 Node.js 기반 백엔드 프로젝트. 대량 데이터의 효율적인 구조화로 쿼리 실행 속도를 2배 개선했습니다.</p>
+                <div class="tag-wrap"><span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">DB Design</span><span class="tag">API Design</span></div>
+            </div>
+
+            <div class="project-card">
+                <div class="p-header"><span class="p-title">효율적 소비를 위한 공동구매 플랫폼</span></div>
+                <p class="p-desc">Django 프레임워크 기반 풀스택 서비스. 검색 알고리즘 및 다중 정렬 로직 최적화로 상품 탐색 편의성을 5배 향상시켰습니다.</p>
+                <div class="tag-wrap"><span class="tag">Django</span><span class="tag">Python</span><span class="tag">Algorithm</span><span class="tag">Full-Stack</span></div>
+            </div>
+        </div>
+
+        <!-- Skills Section (Re-structured based on your table) -->
+        <div id="skills" class="section-box">
+            <h2><i class="fas fa-tools"></i> Technical Skills</h2>
+            <table class="skills-table">
+                <tr class="skills-row">
+                    <td class="skills-cell-label">프로그래밍 언어</td>
+                    <td class="skills-cell-value">Java, JavaScript, Python, C, C++</td>
+                </tr>
+                <tr class="skills-row">
+                    <td class="skills-cell-label">웹 개발</td>
+                    <td class="skills-cell-value">Node.js, Express.js, Django, Spring, HTML, CSS</td>
+                </tr>
+                <tr class="skills-row">
+                    <td class="skills-cell-label">데이터베이스</td>
+                    <td class="skills-cell-value">MySQL, H2, MongoDB</td>
+                </tr>
+                <tr class="skills-row">
+                    <td class="skills-cell-label">인공지능 / 머신러닝</td>
+                    <td class="skills-cell-value">OpenCV, Pytorch, Pandas, NumPy</td>
+                </tr>
+                <tr class="skills-row">
+                    <td class="skills-cell-label">개발 도구 / 환경</td>
+                    <td class="skills-cell-value">Git, GitHub, Google Colab, VS Code, IntelliJ IDEA, Postman</td>
+                </tr>
+                <tr class="skills-row">
+                    <td class="skills-cell-label">하드웨어 / IoT 플랫폼</td>
+                    <td class="skills-cell-value">Arduino, Raspberry Pi, MQTT, Node-RED</td>
+                </tr>
+                <tr class="skills-row">
+                    <td class="skills-cell-label">운영체제</td>
+                    <td class="skills-cell-value">Linux, Windows</td>
+                </tr>
+                <tr class="skills-row">
+                    <td class="skills-cell-label">OA</td>
+                    <td class="skills-cell-value">Notion, Figma, Word, Excel, PowerPoint, HWP</td>
+                </tr>
+            </table>
+        </div>
+
+        <footer>
+            &copy; <span id="year"></span> Mi Ra Seo. All rights reserved.<br>
+            "Connecting Physical Data to Strategic Intelligence"
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
