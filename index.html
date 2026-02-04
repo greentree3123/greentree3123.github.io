@@ -39,7 +39,24 @@
         }
         @keyframes cardFade { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        .profile-icon { width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%); margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; color: white; box-shadow: 0 0 40px rgba(79, 172, 254, 0.5); }
+        /* --- 프로필 이미지 스타일 수정 부분 --- */
+        .profile-image-wrap { 
+            width: 140px; 
+            height: 140px; 
+            border-radius: 50%; 
+            margin: 0 auto 30px; 
+            overflow: hidden; 
+            border: 4px solid var(--accent);
+            box-shadow: 0 0 30px rgba(79, 172, 254, 0.4);
+            background: #1e293b; 
+        }
+        .profile-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 이미지가 찌그러지지 않게 채움 */
+        }
+        /* ---------------------------------- */
+
         h1 { font-size: 2.6rem; margin-bottom: 12px; font-weight: 800; letter-spacing: -1px; }
         .title-sub { font-size: 1rem; color: var(--accent); text-transform: uppercase; letter-spacing: 5px; margin-bottom: 40px; font-weight: 700; }
         .bio { font-size: 1.1rem; line-height: 1.9; margin-bottom: 45px; color: var(--text-sub); word-break: keep-all; }
@@ -78,7 +95,7 @@
         .tag-wrap { display: flex; flex-wrap: wrap; gap: 10px; }
         .tag { background: rgba(79, 172, 254, 0.15); color: #7dd3fc; padding: 5px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(79, 172, 254, 0.2); }
 
-        /* 기술 스택 (수정됨) */
+        /* 기술 스택 */
         .skills-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         .skills-row { border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
         .skills-row:last-child { border-bottom: none; }
@@ -124,7 +141,11 @@
     <div class="container">
         <!-- Identity Section -->
         <div id="home" class="identity-card">
-            <div class="profile-icon"><i class="fas fa-brain"></i></div>
+            <!-- 아이콘 대신 이미지가 들어가는 부분 -->
+            <div class="profile-image-wrap">
+                <img src="profile.jpg" alt="서미라 프로필 사진" onerror="this.src='https://via.placeholder.com/150?text=Profile'">
+            </div>
+            
             <h1>서미라 (Mi Ra Seo)</h1>
             <p class="title-sub">AI & IoT Solutions Engineer</p>
             <p class="bio">
@@ -232,7 +253,7 @@
             </div>
         </div>
 
-        <!-- Skills Section (Re-structured based on your table) -->
+        <!-- Skills Section -->
         <div id="skills" class="section-box">
             <h2><i class="fas fa-tools"></i> Technical Skills</h2>
             <table class="skills-table">
